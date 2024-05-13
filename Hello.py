@@ -62,13 +62,12 @@ def getlatestsolved(username):
 
         # Filtering submissions with verdict "OK"
         for submission in submissions:
-            if 'verdict' in submission and submission["verdict"] != "OK":
-                continue
-            problem = submission["problem"]
-            contest_id = problem["contestId"]
-            problem_index = problem["index"]
-            s = str(contest_id)+str(problem_index)
-            solved_problem.add(s)
+            if 'verdict' in submission and submission["verdict"] == "OK":
+                problem = submission["problem"]
+                contest_id = problem["contestId"]
+                problem_index = problem["index"]
+                s = str(contest_id)+str(problem_index)
+                solved_problem.add(s)
         return solved_problem
     else:
         print("Failed to fetch dataaa")
