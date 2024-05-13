@@ -98,12 +98,14 @@ def lockout(match_id):
     players_str = match_id_split[3]
     problems_str = match_id_split[4]
     points_str = match_id_split[5]
+    ratings_str = match_id_split[6]
     
     players = players_str.split('/')
     problems = problems_str.split('/')
     points = points_str.split('/')
+    ratings = ratings_str.split('/')
 
-    dictionary = {'Points' : points}
+    dictionary = {'Ratings' : ratings,'Points' : points}
     scoreboard = {}
     penalty = {}
 
@@ -246,7 +248,7 @@ def waiting_room(match_id):
 
     time_difference = target_time - current_datetime
 
-    minutes = int(time_difference.total_seconds() // 60) - 330
+    minutes = int(time_difference.total_seconds() // 60)
     seconds = int(time_difference.total_seconds() % 60)
 
     timer_placeholder = st.empty()
@@ -257,7 +259,7 @@ def waiting_room(match_id):
 
         time_difference = target_time - current_datetime
 
-        minutes = int(time_difference.total_seconds() // 60) - 330
+        minutes = int(time_difference.total_seconds() // 60)
         seconds = int(time_difference.total_seconds() % 60)
 
         if minutes<0: break
@@ -309,7 +311,11 @@ def generate_match_id(user,players,target_time_str,match_duration,ratings,points
     match_id += '_'
     for i in range(l):
         match_id += points[i]
-        if i!=l-1: match_id += '/'    
+        if i!=l-1: match_id += '/'
+    match_id += '_'
+    for i in range(l):
+        match_id += ratings[i]
+        if i!=l-1: match_id += '/'           
 
     return match_id    
 
