@@ -246,7 +246,7 @@ def waiting_room(match_id):
 
     time_difference = target_time - current_datetime
 
-    minutes = int(time_difference.total_seconds() // 60)
+    minutes = int(time_difference.total_seconds() // 60) - 330
     seconds = int(time_difference.total_seconds() % 60)
 
     timer_placeholder = st.empty()
@@ -257,7 +257,7 @@ def waiting_room(match_id):
 
         time_difference = target_time - current_datetime
 
-        minutes = int(time_difference.total_seconds() // 60)
+        minutes = int(time_difference.total_seconds() // 60) - 330
         seconds = int(time_difference.total_seconds() % 60)
 
         if minutes<0: break
