@@ -9,7 +9,6 @@ import random
 
 def get_solved_problems(username):
 
-    #Credits: KushKushal
 
     # Making API call to get user's submissions
     response = requests.get(f"https://codeforces.com/api/user.status?handle={username}&from=1&count=1000")
@@ -32,7 +31,6 @@ def get_solved_problems(username):
 
 def get_problems(rating):
 
-    #Credits: KushKushal
 
     url = f"https://codeforces.com/problemset?tags={rating}-{rating}"
     headers = {
@@ -53,7 +51,6 @@ def get_problems(rating):
 
 def getlatestsolved(username):
 
-    #Credits: KushKushal
 
     response = requests.get(f"https://codeforces.com/api/user.status?handle={username}&from=1&count=3&verdict=OK")
     if response.status_code == 200:
