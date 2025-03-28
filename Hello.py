@@ -11,7 +11,6 @@ import cloudscraper
 
 def get_solved_problems(username):
 
-
     # Making API call to get user's submissions
     response = requests.get(f"https://codeforces.com/api/user.status?handle={username}&from=1&count=1000")
 
@@ -27,6 +26,7 @@ def get_solved_problems(username):
             s = str(contest_id)+str(problem_index)
             solved_problem.add(s)
         return solved_problem
+        
     else:
         print("Failed to fetch dt")
         return None
@@ -46,14 +46,13 @@ def get_problems(rating):
         problems = soup.find_all('td', class_="id")
         problem_list = [item.find('a').text.strip() for item in problems if item.find('a')]
         return problem_list
+        
     else:
         print("Failed to fetch problems. Status Code:", response.status_code)
         return []
 
 
-
 def getlatestsolved(username):
-
 
     response = requests.get(f"https://codeforces.com/api/user.status?handle={username}&from=1&count=3&verdict=OK")
     if response.status_code == 200:
@@ -226,12 +225,7 @@ def lockout(match_id):
     if user==winner:
         st.write(f"Congrats, {name}!!")
     else:
-        st.write(f"You lost, {name}.")
-        st.write(f"Sucks to be you.")
-
-    
-
-    
+        st.write(f"You lost, {name} :(")
 
 
 
@@ -270,9 +264,6 @@ def waiting_room(match_id):
     st.session_state['lockout'] = 2    
 
     start_btn = st.button("Start Lockout")
-
-
-
 
 
 
@@ -336,20 +327,28 @@ def lockout_click(user,players,target_time_str,match_duration,ratings,points):
 
 def match_details(user):
     
-    players_str = st.text_input("Enter cf ids of other players (comma separated with no space): ")
+    players_str = st.text_input("Enter cf ids of other players (comma separated): ")
 
     target_time_str = st.text_input("Enter match start time in (HH\:MM\:SS) format: ")
 
     match_duration = st.text_input("Enter duration of match in minutes: ")
 
-    ratings_str = st.text_input("Enter ratings of problems (comma separated with no space): ")
+    ratings_str = st.text_input("Enter ratings of problems (comma separated): ")
 
-    points_str = st.text_input("Enter points of problems (comma separated with no space): ")
+    points_str = st.text_input("Enter points of problems (comma separated): ")
 
     ratings = ratings_str.split(',')
+    for i in range(len(ratings)):
+        ratings[i] = ratings[i].replace(' ','')
+    
     points = points_str.split(',')
+    for i in range(len(points)):
+        points[i] = points[i].replace(' ','')
 
     players = players_str.split(",")
+    for i in range(len(players)):
+        players[i] = players[i].replace(' ','')
+        
     st.write("Select match mode: ")
 
     lockout_btn = st.button("Lockout", on_click = lockout_click, args = (user,players,target_time_str,match_duration,ratings,points))
@@ -357,6 +356,7 @@ def match_details(user):
 
 
 def join_click():
+    
     st.session_state['join_btn'] = 2
 
 
@@ -390,9 +390,9 @@ if 'lockout' in st.session_state:
 
 else:
 
-    st.title("cf duel")
+    st.title("CF Duel")
 
-    user = st.text_input("Enter your cf id: ")
+    user = st.text_input("Enter your Codeforces handle: ")
 
     st.session_state['user'] = user
 
