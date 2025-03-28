@@ -1,5 +1,7 @@
 # Codeforces Lockout
 
+[Open Web App](https://cf-app-aojsxgr85pa4btudmawxvc.streamlit.app/)
+
 ## Overview
 
 Codeforces Lockout is a competitive programming format where participants go head-to-head to solve a set of problems. Once a participant solves a problem, it becomes "locked out" for their opponent, meaning they can no longer earn points for solving it. The player with the highest points at the end of the match wins.
