@@ -28,7 +28,7 @@ def get_solved_problems(username):
         return solved_problem
         
     else:
-        print("Failed to fetch dt")
+        print("Failed to fetch data. Make sure the usernames of the players are correct.")
         return None
     
 
@@ -48,7 +48,7 @@ def get_problems(rating):
         return problem_list
         
     else:
-        print("Failed to fetch problems. Status Code:", response.status_code)
+        print("Failed to fetch problems. Make sure the ratings are multiples of 100 between 800 and 3500. Status Code:", response.status_code)
         return []
 
 
@@ -69,7 +69,7 @@ def getlatestsolved(username):
                 solved_problem.add(s)
         return solved_problem
     else:
-        print("Failed to fetch dataaa")
+        print("Failed to fetch data. Make sure the usernames of the players are correct.")
         return None
 
 
