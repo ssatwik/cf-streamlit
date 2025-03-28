@@ -6,6 +6,8 @@ import time
 import requests
 from bs4 import BeautifulSoup
 import random
+import cloudscraper
+
 
 def get_solved_problems(username):
 
@@ -28,26 +30,27 @@ def get_solved_problems(username):
     else:
         print("Failed to fetch dt")
         return None
+    
 
 def get_problems(rating):
 
-
     url = f"https://codeforces.com/problemset?tags={rating}-{rating}"
-    headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
-    response = requests.get(url, headers=headers)
+    
+    scraper = cloudscraper.create_scraper()  # Bypass Cloudflare
+    response = scraper.get(url)
+    
+    # print("Response Code:", response.status_code)
+
     if response.status_code == 200:
-        html = response.text
-        soup = BeautifulSoup(html,"html.parser")
-        problems = soup.find_all('td', class_= "id")
-        list = []
-        cnt = 0
-        for item in problems:
-            ins = item.find('a')
-            txt = ins.text.strip()
-            list.append(txt)
-        # print(list)
-        return list
+        soup = BeautifulSoup(response.text, "html.parser")
+        problems = soup.find_all('td', class_="id")
+        problem_list = [item.find('a').text.strip() for item in problems if item.find('a')]
+        return problem_list
+    else:
+        print("Failed to fetch problems. Status Code:", response.status_code)
+        return []
+
+
 
 def getlatestsolved(username):
 
