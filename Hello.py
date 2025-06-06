@@ -89,7 +89,7 @@ def lockout(match_id):
 
     st.title("Lockout")
 
-    match_id_split = match_id.split('_')
+    match_id_split = match_id.split('*')
 
     match_duration = match_id_split[2]
 
@@ -231,7 +231,7 @@ def lockout(match_id):
 
 def waiting_room(match_id):
 
-    match_id_split = match_id.split('_')
+    match_id_split = match_id.split('*')
 
     target_time_str = match_id_split[1]
 
@@ -288,21 +288,21 @@ def generate_match_id(user,players,target_time_str,match_duration,ratings,points
                 problems.append(temp)
                 break
 
-    match_id = mode + '_' + target_time_str + '_' + match_duration + '_' + user
+    match_id = mode + '*' + target_time_str + '*' + match_duration + '*' + user
 
     for player in players:
         match_id += ('/' + player)
-    match_id += '_'
+    match_id += '*'
 
     l = len(problems)
     for i in range(l):
         match_id += problems[i]
         if i!=l-1: match_id += '/'
-    match_id += '_'
+    match_id += '*'
     for i in range(l):
         match_id += points[i]
         if i!=l-1: match_id += '/'
-    match_id += '_'
+    match_id += '*'
     for i in range(l):
         match_id += ratings[i]
         if i!=l-1: match_id += '/'           
